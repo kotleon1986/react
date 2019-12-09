@@ -1,0 +1,78 @@
+@import "variables";
+@import "colors";
+
+header {
+  height: $header-size;
+  padding: 0 1rem;
+  color: $white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $header-font-size;
+}
+
+footer {
+  padding: 1rem !important;
+  height: $footer-size;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+}
+
+#main-layout {
+  header a {
+    color: $white;
+  }
+
+  section.content-section {
+    height: calc(100vh - #{$header-size + $footer-size});
+  }
+
+  div.ant-layout-sider-trigger {
+    position: relative;
+  }
+
+  li.ant-menu-item {
+    margin-top: 0;
+  }
+}
+
+#auth-layout {
+  main.ant-layout-content {
+    background: $white;
+  }
+
+  #auth-container {
+    padding: 4rem;
+  }
+}
+
+#sidebar a {
+  color: $white !important;
+}
+
+#admin-layout {
+  header {
+    height: $header-size;
+  }
+
+  #admin-sidebar-toggler {
+    cursor: pointer;
+    margin-left: 1rem;
+    color: $sidebar-color;
+  }
+
+  #admin-logout-button {
+    color: $sidebar-color;
+    font-size: $header-font-size;
+  }
+
+  main.ant-layout-content {
+    margin: $admin-content-padding 16px;
+    padding: $admin-content-padding;
+    background: rgb(255, 255, 255);
+    min-height: calc(100vh - #{$header-size + (2 * $admin-content-padding)});
+  }
+}
