@@ -1,9 +1,15 @@
-import Api from "../../utils/api";
-import AuthActionTypes from "../redux/types/auth";
-import Token from "../../utils/token";
+import Api from "../../../utils/api";
+import Token from "../../../utils/token";
+import AuthActionTypes from "../types/auth";
 
+/**
+ * Dispatch user to store from JWT token.
+ *
+ * @param {string} token
+ * @param {function} dispatch
+ */
 export const storeUserDataFromToken = (token, dispatch) => {
-  setToken(token);
+  Token.setToken(token);
 
   Api.setAuthToken(token);
 
@@ -13,9 +19,15 @@ export const storeUserDataFromToken = (token, dispatch) => {
   });
 };
 
+/**
+ * Check and authorize stored JWT token.
+ *
+ * @param {function} dispatch
+ */
 export const authorizeUser = dispatch => {
   return new Promise((resolve, reject) => {
     const token = Token.getToken();
+
     if (!token) {
       resolve(null);
     }
@@ -36,6 +48,11 @@ export const authorizeUser = dispatch => {
   });
 };
 
+/**
+ * Remove user data from store.
+ *
+ * @param {function} dispatch
+ */
 export const logoutUser = dispatch => {
   Token.removeToken();
 

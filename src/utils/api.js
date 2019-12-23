@@ -5,14 +5,15 @@ import API_ENDPOINTS from "./../constants/api";
 import Flash, { MessageTypes } from "./flash";
 import Token from "./token";
 
+import store from "../redux/store";
+import { storeUserDataFromToken } from "./../modules/auth/actions/auth";
+
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 const Api = {
   request(endpoint, params, body, disableTokenCheck) {
     return this.checkTokenExpiration(disableTokenCheck)
-      .then(() => {
-        return this.send(endpoint, params, body);
-      })
+      .then(() => this.send(endpoint, params, body))
       .catch(err => {
         if (err.response.status === 401) {
           Flash(MessageTypes.ERROR, "Please authorize to proceed");
@@ -34,8 +35,6 @@ const Api = {
 
     return axios[method](this.url(url, params), body || params)
       .then(res => {
-        StoreHelper.clearErrors();
-
         if (res.data.message) {
           Flash(MessageTypes.SUCCESS, res.data.message);
         }
@@ -66,19 +65,19 @@ const Api = {
     return url;
   },
 
-  checkTokenExpiration(disableTokenCheck) {
+  checkTokenExpiration(noTokenCheck) {
     return new Promise((resolve, reject) => {
-      if (disableTokenCheck) {
+      if (noTokenCheck) {
         return resolve(true);
       }
 
-      if (!Token.tokenLeftTenMinutes()) {
+      if (!Token.getToken() || !Token.tokenLeftTenMinutes()) {
         return resolve(true);
       }
 
       this.send("auth.refresh")
         .then(res => {
-          storeUserDataFromToken(res.data.token, StoreHelper.store().dispatch);
+          storeUserDataFromToken(res.data.token, store.dispatch);
           resolve(true);
         })
         .catch(err => reject(err));

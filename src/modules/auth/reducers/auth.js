@@ -3,7 +3,6 @@ import AuthActionTypes from "../types/auth";
 const initialState = {
   user: null,
   isAuthenticated: false,
-  passwordReset: false,
   resetTokenChecked: false
 };
 

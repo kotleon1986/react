@@ -2,7 +2,7 @@
 @import "colors";
 
 header {
-  height: $header-size;
+  height: $header-size !important;
   padding: 0 1rem;
   color: $white;
   display: flex;
@@ -12,12 +12,13 @@ header {
 }
 
 footer {
+  background: transparent !important;
   padding: 1rem !important;
   height: $footer-size;
   position: fixed;
   bottom: 0;
   width: 100%;
-  text-align: center;
+  text-align: right;
   font-weight: 600;
 }
 
@@ -27,7 +28,7 @@ footer {
   }
 
   section.content-section {
-    height: calc(100vh - #{$header-size + $footer-size});
+    height: calc(100vh - #{$header-size});
   }
 
   div.ant-layout-sider-trigger {
@@ -39,40 +40,27 @@ footer {
   }
 }
 
-#auth-layout {
-  main.ant-layout-content {
-    background: $white;
-  }
+#main-layout-content {
+  background: $white;
+  padding: 2rem;
+  margin: 0;
+}
 
-  #auth-container {
-    padding: 4rem;
-  }
+#auth-layout {
+  padding: 4rem;
+  width: 32rem;
+  margin: auto;
 }
 
 #sidebar a {
   color: $white !important;
 }
 
-#admin-layout {
-  header {
-    height: $header-size;
-  }
-
-  #admin-sidebar-toggler {
-    cursor: pointer;
-    margin-left: 1rem;
-    color: $sidebar-color;
-  }
-
-  #admin-logout-button {
-    color: $sidebar-color;
-    font-size: $header-font-size;
-  }
-
-  main.ant-layout-content {
-    margin: $admin-content-padding 16px;
-    padding: $admin-content-padding;
-    background: rgb(255, 255, 255);
-    min-height: calc(100vh - #{$header-size + (2 * $admin-content-padding)});
-  }
+#loading-spinner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  bottom: 0;
+  margin: auto;
 }

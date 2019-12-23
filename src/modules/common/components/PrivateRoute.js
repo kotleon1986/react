@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect, Route } from "react-router";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import StorageHelper from "../../helpers/storage-helper";
 
 const PrivateRoute = ({ auth, roles, path, redirectTo, ...rest }) =>
   userAuthorized(auth, roles) ? (
@@ -16,7 +15,7 @@ const PrivateRoute = ({ auth, roles, path, redirectTo, ...rest }) =>
   );
 
 const userAuthorized = (auth, roles) =>
-  auth.isAuthenticated && StorageHelper.userHasRole(roles);
+  auth.isAuthenticated && userHasRole(roles);
 
 const userHasRole = roles => {
   if (!roles || !roles.length) return true;
