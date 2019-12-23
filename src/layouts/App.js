@@ -13,7 +13,7 @@ const AppLayout = () => {
 
   useEffect(() => {
     if (loader) {
-      authorizeUser(dispatch).then(setTimeout(() => setLoader(false), 5000));
+      authorizeUser(dispatch).then(() => setLoader(false));
     }
   });
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { Icon, Typography } from "antd";
 import { Formik } from "formik";
@@ -94,6 +95,18 @@ const Login = props => {
             </Form.Item>
 
             <SubmitButton>Login</SubmitButton>
+            <Link to="/forgot-password">Forgot Password?</Link>
+
+            <div style={{ marginBottom: "5px", marginTop: "5px" }}>
+              <Link to="/register" style={{ marginLeft: "3px" }}>
+                Create new account
+              </Link>
+            </div>
+            <div>
+              <Link to="/" style={{ marginLeft: "3px" }}>
+                Back to home page
+              </Link>
+            </div>
           </Form>
         </div>
       )}
