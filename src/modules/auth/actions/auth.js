@@ -48,6 +48,18 @@ export const authorizeUser = dispatch => {
   });
 };
 
+export const userHasRole = roles => {
+  if (!roles || !roles.length) return true;
+  const user = this.getUserFromToken();
+  if (!user) return false;
+
+  if (Array.isArray(roles)) {
+    return roles.indexOf(user.role) > -1;
+  } else {
+    return roles === user.role;
+  }
+};
+
 /**
  * Remove user data from store.
  *

@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 import { useDispatch } from "react-redux";
-import { Spin } from "antd";
 
 import { authorizeUser } from "../modules/auth/actions/auth";
 
 import Routes from "../routes/Routes";
+import Loader from "../modules/common/components/Loader";
 
 const AppLayout = () => {
   const [loader, setLoader] = useState(true);
@@ -17,9 +17,7 @@ const AppLayout = () => {
     }
   });
 
-  const loading = () => <Spin id="loading-spinner" tip="Loading..." />;
-
-  return <Fragment>{loader ? loading() : <Routes />}</Fragment>;
+  return <Fragment>{loader ? <Loader /> : <Routes />}</Fragment>;
 };
 
 export default AppLayout;

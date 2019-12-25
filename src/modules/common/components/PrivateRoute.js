@@ -1,40 +1,15 @@
 import React from "react";
-import { Redirect, Route } from "react-router";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router";
+import { userHasRole } from "../../auth/actions/auth";
+import AppRoute from "./AppRoute";
 
-const PrivateRoute = ({ auth, roles, path, redirectTo, ...rest }) =>
-  userAuthorized(auth, roles) ? (
-    redirectTo ? (
-      <Redirect to={redirectTo} />
-    ) : (
-      <Route {...rest} />
-    )
-  ) : (
-    <Redirect to="/login" />
-  );
+const PrivateRoute = props => {
+  const auth = useSelector(state => state.auth);
 
-const userAuthorized = (auth, roles) =>
-  auth.isAuthenticated && userHasRole(roles);
+  const userAuthorized = () => auth.isAuthenticated && userHasRole(props.roles);
 
-const userHasRole = roles => {
-  if (!roles || !roles.length) return true;
-  const user = this.getUserFromToken();
-  if (!user) return false;
-
-  if (Array.isArray(roles)) {
-    return roles.indexOf(user.role) > -1;
-  } else {
-    return roles === user.role;
-  }
+  return userAuthorized() ? <AppRoute {...props} /> : <Redirect to="/login" />;
 };
 
-PrivateRoute.propTypes = {
-  auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

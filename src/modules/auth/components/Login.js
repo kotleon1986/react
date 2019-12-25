@@ -8,7 +8,6 @@ import { Form, Input, SubmitButton } from "formik-antd";
 
 import * as Yup from "yup";
 import Api from "../../../utils/api";
-import Flash from "../../../utils/flash";
 
 import { storeUserDataFromToken } from "../actions/auth";
 
@@ -43,8 +42,6 @@ const Login = props => {
       const { token } = result.data;
 
       storeUserDataFromToken(token, dispatch);
-
-      Flash("success", "Login successful");
     } catch (err) {
       console.log(err);
     }

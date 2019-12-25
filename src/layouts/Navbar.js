@@ -55,8 +55,6 @@ const Navbar = props => {
     </Link>
   );
 
-  console.log("auth: ", auth);
-
   return (
     <Header style={{ background: blue["9"] }}>
       <div className="logo">
