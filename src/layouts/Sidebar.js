@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Layout, Menu, Icon } from "antd";
+import { userHasRole } from "../modules/auth/actions/auth";
+import Roles from "../constants/roles";
 const { Sider } = Layout;
 
 const Sidebar = props => {
@@ -26,6 +28,14 @@ const Sidebar = props => {
             <span>Change Password</span>
           </Link>
         </Menu.Item>
+        {userHasRole(Roles.ADMIN) && (
+          <Menu.Item key="users">
+            <Link to="/admin/users">
+              <Icon type="profile" />
+              <span>Admin: Users</span>
+            </Link>
+          </Menu.Item>
+        )}
       </Menu>
     </Sider>
   );

@@ -15,18 +15,18 @@ const Api = {
     return this.checkTokenExpiration(disableTokenCheck)
       .then(() => this.send(endpoint, params, body))
       .catch(err => {
-        if (err.response.status === 401) {
+        if (err.response && err.response.status === 401) {
           Flash(MessageTypes.ERROR, "Please authorize to proceed");
 
           window.location.href = "/login";
           throw err.response;
         }
 
-        if (err.response.data.message) {
+        if (err.response && err.response.data.message) {
           Flash(MessageTypes.ERROR, err.response.data.message);
         }
 
-        throw err.response;
+        throw err;
       });
   },
 

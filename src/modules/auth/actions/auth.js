@@ -50,7 +50,7 @@ export const authorizeUser = dispatch => {
 
 export const userHasRole = roles => {
   if (!roles || !roles.length) return true;
-  const user = this.getUserFromToken();
+  const user = Token.getUserFromToken();
   if (!user) return false;
 
   if (Array.isArray(roles)) {

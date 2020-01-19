@@ -1,0 +1,7 @@
+const AdminUsersActionTypes = {
+  SET_ADMIN_USER_DATA: "SET_ADMIN_USER_DATA",
+  SET_ADMIN_USER_CURRENT: "SET_ADMIN_USER_CURRENT",
+  CLEAR_ADMIN_USER: "CLEAR_ADMIN_USER"
+};
+
+export default AdminUsersActionTypes;

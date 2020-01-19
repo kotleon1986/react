@@ -38,6 +38,14 @@ const API_ENDPOINTS = {
         url: "/auth/reset-password"
       }
     }
+  },
+  admin: {
+    users: {
+      list: {
+        method: "post",
+        url: "/admin/users/list"
+      }
+    }
   }
 };
 
