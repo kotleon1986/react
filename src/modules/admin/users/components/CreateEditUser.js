@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Icon, Typography } from "antd";
 import { Formik } from "formik";
@@ -32,8 +32,8 @@ const userSchema = Yup.object().shape({
 });
 
 const CreateEditUser = () => {
-  const user = useSelector(state => state.adminUser.currentUser);
-  const dispatch = useDispatch();
+  const user = useSelector(state => state.adminUsers.current);
+  // const dispatch = useDispatch();
 
   const saveUser = userData => {
     console.log(userData);

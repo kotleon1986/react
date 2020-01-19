@@ -1,21 +1,22 @@
 import AdminUsersActionTypes from "./../types/users";
+import InitTableState from "../../../../constants/init-table-state";
 
-const initialState = {
-  currentUser: null
-};
+const initialState = { ...InitTableState };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case AdminUsersActionTypes.SET_ADMIN_USER_CURRENT:
+    case AdminUsersActionTypes.SET_ADMIN_USERS_DATA:
       return {
         ...state,
-        currentUser: action.payload
+        data: action.payload,
+        loaded: true
       };
 
-    case AdminUsersActionTypes.CLEAR_ADMIN_USER:
+    case AdminUsersActionTypes.SET_ADMIN_USERS_PARAMS:
       return {
         ...state,
-        currentUser: null
+        params: action.payload,
+        loaded: false
       };
 
     default:

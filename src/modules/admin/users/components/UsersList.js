@@ -30,17 +30,29 @@ const columns = [
   },
   {
     title: "Email",
-    dataIndex: "email"
+    dataIndex: "email",
+    sorter: true
   }
 ];
 
 const UsersList = props => {
+  const store = useSelector(state => state.adminUsers);
+
+  const deleteUser = id => {
+    console.log(id);
+  };
+
   return (
     <Datatable
+      title="Users"
+      addButton={{ text: "Add User", icon: "user-add" }}
       columns={columns}
       endpoint="admin.users.list"
-      edit={AdminUsersActionTypes.SET_ADMIN_USER_CURRENT}
+      store={store}
+      data={AdminUsersActionTypes.SET_ADMIN_USERS_DATA}
+      params={AdminUsersActionTypes.SET_ADMIN_USERS_PARAMS}
       history={props.history}
+      deleteCallback={deleteUser}
     />
   );
 };
