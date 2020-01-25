@@ -8,14 +8,16 @@ export default function(state = initialState, action) {
     case AdminUsersActionTypes.SET_ADMIN_USERS_DATA:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.items,
+        total: action.payload.total,
+        totalPages: action.payload.totalPages,
         loaded: true
       };
 
     case AdminUsersActionTypes.SET_ADMIN_USERS_PARAMS:
       return {
         ...state,
-        params: action.payload,
+        params: { ...state.params, ...action.payload },
         loaded: false
       };
 

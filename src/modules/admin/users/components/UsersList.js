@@ -9,13 +9,15 @@ const columns = [
     title: "First Name",
     dataIndex: "firstName",
     sorter: true,
-    width: "20%"
+    width: "20%",
+    search: true
   },
   {
     title: "Last Name",
     dataIndex: "lastName",
     sorter: true,
-    width: "20%"
+    width: "20%",
+    search: true
   },
   {
     title: "Role",
@@ -31,7 +33,8 @@ const columns = [
   {
     title: "Email",
     dataIndex: "email",
-    sorter: true
+    sorter: true,
+    search: true
   }
 ];
 
