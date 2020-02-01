@@ -43,10 +43,12 @@ export default function(state = initialState, action) {
         single: { ...schema }
       };
 
-    case AdminUsersActionTypes.SET_ADMIN_USERS_SINGLE_UPDATED:
+    case AdminUsersActionTypes.SET_ADMIN_USERS_UPDATED:
       return {
         ...state,
-        single: { ...state.single, ...action.payload },
+        single: action.payload
+          ? { ...state.single, ...action.payload }
+          : state.single,
         loaded: false
       };
 

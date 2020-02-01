@@ -2,9 +2,17 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Table, Divider, Icon, Button, Col, Row, Input } from "antd";
-
-import { Typography } from "antd";
+import {
+  Table,
+  Divider,
+  Icon,
+  Button,
+  Col,
+  Row,
+  Input,
+  Popconfirm,
+  Typography
+} from "antd";
 
 import Api from "../../../utils/api";
 import _ from "lodash";
@@ -84,7 +92,7 @@ const Datatable = props => {
     if (!store.loaded && !loading) {
       fetchData();
     }
-  }, [props, columns, dispatch, pagination]);
+  }, [props, columns, dispatch, pagination, loading]);
 
   /**
    * Add action (edit/delete) buttons to columns if needed
@@ -104,9 +112,14 @@ const Datatable = props => {
             <Icon type="edit" />
           </Button>
           <Divider type="vertical" />
-          <Button type="link" onClick={() => showDeletePopup(id)}>
+          <Popconfirm
+            title="Are you sure？"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={() => props.deleteCallback(id)}
+          >
             <Icon type="delete" />
-          </Button>
+          </Popconfirm>
         </Fragment>
       )
     };
@@ -160,15 +173,6 @@ const Datatable = props => {
       }
     }
   });
-
-  /**
-   * Show delete confirmation popup
-   *
-   * @param {integer} id
-   */
-  const showDeletePopup = id => {
-    console.log(id);
-  };
 
   /**
    * Request data if any parameters change

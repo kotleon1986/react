@@ -1,8 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Datatable from "../../../common/components/Datatable";
 import AdminUsersActionTypes from "../types/users";
+import { deleteUser } from "../actions/users";
 
 const columns = [
   {
@@ -40,9 +41,15 @@ const columns = [
 
 const UsersList = props => {
   const store = useSelector(state => state.adminUsers);
+  const dispatch = useDispatch();
 
-  const deleteUser = id => {
-    console.log(id);
+  const deleteSelectedUser = async id => {
+    try {
+      const result = await deleteUser(id);
+      dispatch(result);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,7 +62,7 @@ const UsersList = props => {
       data={AdminUsersActionTypes.SET_ADMIN_USERS_DATA}
       params={AdminUsersActionTypes.SET_ADMIN_USERS_PARAMS}
       history={props.history}
-      deleteCallback={deleteUser}
+      deleteCallback={deleteSelectedUser}
     />
   );
 };

@@ -80,7 +80,6 @@ const CreateEditUser = props => {
     };
   }
 
-  console.log(userSchema);
   return (
     <Fragment>
       {loading ? (
