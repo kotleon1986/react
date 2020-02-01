@@ -11,47 +11,48 @@ import { storeUserDataFromToken } from "./../modules/auth/actions/auth";
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 const Api = {
-  request(endpoint, params, body, disableTokenCheck) {
-    return this.checkTokenExpiration(disableTokenCheck)
-      .then(() => this.send(endpoint, params, body))
-      .catch(err => {
-        if (err.response && err.response.status === 401) {
-          Flash(MessageTypes.ERROR, "Please authorize to proceed");
+  async request(endpoint, params, body, disableTokenCheck) {
+    try {
+      await this.checkTokenExpiration(disableTokenCheck);
+      return await this.send(endpoint, params, body);
+    } catch (err) {
+      console.log("err: ", err);
+      if (err.response && err.response.status === 401) {
+        Flash(
+          MessageTypes.ERROR,
+          err.response.data.message || "Please authorize to proceed"
+        );
 
-          window.location.href = "/login";
-          throw err.response;
-        }
+        window.location.href = "/login";
+        throw err.response;
+      }
 
-        if (err.response && err.response.data.message) {
-          Flash(MessageTypes.ERROR, err.response.data.message);
-        }
+      if (err.response && err.response.data.message) {
+        Flash(MessageTypes.ERROR, err.response.data.message);
+      }
 
-        throw err;
-      });
+      throw err;
+    }
   },
 
-  send(endpoint, params, body) {
+  async send(endpoint, params, body) {
     const { method, url } = _.get(API_ENDPOINTS, endpoint);
 
-    return axios[method](this.url(url, params), body || params)
-      .then(res => {
-        if (res.data.message) {
-          Flash(MessageTypes.SUCCESS, res.data.message);
-        }
+    const res = await axios[method](this.url(url, params), body || params);
 
-        if (res.data.info) {
-          Flash(MessageTypes.INFO, res.data.info);
-        }
+    if (res.data.message) {
+      Flash(MessageTypes.SUCCESS, res.data.message);
+    }
 
-        if (res.data.warning) {
-          Flash(MessageTypes.WARNING, res.data.warning);
-        }
+    if (res.data.info) {
+      Flash(MessageTypes.INFO, res.data.info);
+    }
 
-        return res.data;
-      })
-      .catch(err => {
-        throw err;
-      });
+    if (res.data.warning) {
+      Flash(MessageTypes.WARNING, res.data.warning);
+    }
+
+    return res.data;
   },
 
   url(url, params) {

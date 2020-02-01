@@ -1,7 +1,17 @@
 import AdminUsersActionTypes from "./../types/users";
 import InitTableState from "../../../../constants/init-table-state";
 
+const schema = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  role: ""
+};
+
 const initialState = { ...InitTableState };
+initialState.single = { ...schema };
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -18,6 +28,25 @@ export default function(state = initialState, action) {
       return {
         ...state,
         params: { ...state.params, ...action.payload },
+        loaded: false
+      };
+
+    case AdminUsersActionTypes.SET_ADMIN_USERS_SINGLE:
+      return {
+        ...state,
+        single: { ...state.single, ...action.payload }
+      };
+
+    case AdminUsersActionTypes.SET_ADMIN_USERS_SINGLE_EMPTY:
+      return {
+        ...state,
+        single: { ...schema }
+      };
+
+    case AdminUsersActionTypes.SET_ADMIN_USERS_SINGLE_UPDATED:
+      return {
+        ...state,
+        single: { ...state.single, ...action.payload },
         loaded: false
       };
 

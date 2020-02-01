@@ -20,6 +20,12 @@ const columns = [
     search: true
   },
   {
+    title: "Email",
+    dataIndex: "email",
+    sorter: true,
+    search: true
+  },
+  {
     title: "Role",
     dataIndex: "role.name",
     sorter: true,
@@ -29,12 +35,6 @@ const columns = [
     ],
     render: (name, row) => row.role.displayName,
     width: "20%"
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    sorter: true,
-    search: true
   }
 ];
 

@@ -22,7 +22,7 @@ const UserRoutes = () => (
     />
     <PrivateRoute
       exact
-      path="/admin/users/:id/edit"
+      path="/admin/users/edit/:id"
       roles={["admin"]}
       component={CreateEditUser}
     />

@@ -44,6 +44,22 @@ const API_ENDPOINTS = {
       list: {
         method: "post",
         url: "/admin/users/list"
+      },
+      single: {
+        method: "get",
+        url: "/admin/users"
+      },
+      create: {
+        method: "post",
+        url: "/admin/users"
+      },
+      update: {
+        method: "put",
+        url: "/admin/users"
+      },
+      delete: {
+        method: "delete",
+        url: "/admin/users"
       }
     }
   }

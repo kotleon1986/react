@@ -2,7 +2,7 @@ const InitTableState = {
   data: null,
   total: 0,
   totalPages: 0,
-  current: null,
+  single: null,
   params: {
     page: 1,
     limit: 10,

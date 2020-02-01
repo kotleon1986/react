@@ -84,7 +84,7 @@ const Datatable = props => {
     if (!store.loaded) {
       fetchData();
     }
-  }, [props, columns, dispatch]);
+  }, [props, columns, dispatch, pagination]);
 
   /**
    * Add action (edit/delete) buttons to columns if needed
@@ -98,7 +98,7 @@ const Datatable = props => {
           <Button
             type="link"
             onClick={() =>
-              history.push(`${history.location.pathname}/${row.id}/edit`)
+              history.push(`${history.location.pathname}/edit/${row.id}`)
             }
           >
             <Icon type="edit" />
@@ -135,23 +135,22 @@ const Datatable = props => {
    * @param {*} dataIndex
    */
   const getColumnSearchProps = columnName => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters
-    }) => (
-      <Input
-        ref={node => {
-          searchInput = node;
-        }}
-        placeholder={`Search ${columnName}`}
-        value={selectedKeys[0]}
-        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-        onPressEnter={() => confirm()}
-        style={{ width: 188, marginBottom: 8, display: "block" }}
-      />
-    ),
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => {
+      return (
+        <Input
+          ref={node => {
+            searchInput = node;
+          }}
+          placeholder={`Search ${columnName}`}
+          value={selectedKeys[0]}
+          onChange={e =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={confirm}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
+        />
+      );
+    },
     filterIcon: filtered => (
       <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
