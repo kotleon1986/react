@@ -81,7 +81,7 @@ const Datatable = props => {
     setParamsByDefault();
 
     // Fetch data
-    if (!store.loaded) {
+    if (!store.loaded && !loading) {
       fetchData();
     }
   }, [props, columns, dispatch, pagination]);
